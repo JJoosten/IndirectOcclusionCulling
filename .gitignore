@@ -1,0 +1,17 @@
+*.opensdf
+*.sdf
+*.tlog
+.DS_Store
+Build/CrossFrameworkCPP.sln
+Build/CrossFrameworkCpp.vcxproj
+Build/CrossFrameworkCpp.vcxproj.filters
+Build/bin/
+*.nvuser
+Build/
+Dependencies/Archives/ODE/
+Buildscripts/Tools/Android/Ndk/
+Buildscripts/Tools/Android/Sdk/
+Buildscripts/Tools/Android/Jdk/
+Buildscripts/Tools/Android/Ant/
+*.mfm
+*.mfa
