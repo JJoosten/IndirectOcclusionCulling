@@ -90,10 +90,7 @@ public:
 
 		// init device
 		gfx.Init(ctx, 0, NUM_BACK_BUFFER_FRAMES, cfc::gpu_swapimage_type::Rgba8UnormSrgb, cfc::gpu_format_type::D24UnormS8Uint);
-
-		// since we are profiling and this is not a retail game
-		d12_gfx.DX12_SetStablePowerState(true);
-
+	
 		// create command lists
 		for (usize i = 0; i < gfx.GetBackbufferFrameQuantity(); i++)
 			gfxCmdLists[i] = gfx.GetCommandList(gfx.AddCommandList());

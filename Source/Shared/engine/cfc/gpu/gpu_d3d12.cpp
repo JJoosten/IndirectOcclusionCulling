@@ -2,7 +2,7 @@
 // Enable Multi-GPU support
 #define CFC_DX12_MGPU_AFFINITY
 // Enable D3D debug layer support
-//#define CFC_DX12_ENABLE_DEBUG
+// #define CFC_DX12_ENABLE_DEBUG
 
 // ** END CONFIGURATION
 

@@ -1073,9 +1073,9 @@ void gfx_dx12::Init(cfc::context& ctx, usize deviceID /*= 0*/, u32 numFrames /*=
 	_Resize();
 
 	// setup gpu timer query read back buffer
-	m_impl->gpuCtx.SetStablePowerState(true);
+	// TODO: NEEDS DEVELOPER MODE	m_impl->gpuCtx.SetStablePowerState(true);
 	m_impl->gpuTimerQueryTimeStampFrequency = m_impl->gpuCtx.GetTimeStampFrequency(m_impl->cmdQueue);
-	m_impl->gpuCtx.SetStablePowerState(false);
+	// TODO: NEEDS DEVELOPER MODE	m_impl->gpuCtx.SetStablePowerState(false);
 	m_impl->gpuTimerQueryIndex.store(0);
 	m_impl->gpuTimerQueryFrameCntr = 0;
 	m_impl->gpuTimerQueryFnc = m_impl->gpuCtx.CreateFence(0, gpu_fenceshare_type::Unshared);
@@ -1143,8 +1143,20 @@ void gfx_dx12::_Resize()
 	{
 		// create depth buffer & dsv
 		gpu_defaultclear_desc dclear(m_impl->resFrameDepth_type);
-		m_impl->resFrameDepth = m_impl->gpuCtx.CreateCommittedResource(gpu_heap_type::Default, gpu_resource_desc::Tex2D(m_impl->resFrameDepth_type, (u64)m_impl->gpu_viewport.Width, (u32)m_impl->gpu_viewport.Height, 1, 1, gpu_resource_desc::resourceflags::AllowDepthStencil), gpu_resourcestate::DepthWrite, &dclear);
-		stl_assert(m_impl->gpuCtx.CreateDescriptorDSVTexture(m_impl->resFrameDepth, m_impl->gpuCtx.DescriptorHeapGetCPUAddressStart(m_impl->backbufferDsvHeap)));
+
+		cfc::gpu_format_type format = m_impl->resFrameDepth_type;
+
+		if (format == cfc::gpu_format_type::D24UnormS8Uint)
+			format = cfc::gpu_format_type::R24G8Typeless;
+		else if (format == cfc::gpu_format_type::D32Float)
+			format = cfc::gpu_format_type::R32Typeless;
+		else if (format == cfc::gpu_format_type::D16Unorm)
+			format = cfc::gpu_format_type::R16Typeless;
+		else if (format == cfc::gpu_format_type::D32FloatS8X24Uint)
+			format = cfc::gpu_format_type::R32G8X24Typeless;
+
+		m_impl->resFrameDepth = m_impl->gpuCtx.CreateCommittedResource(gpu_heap_type::Default, gpu_resource_desc::Tex2D(format, (u64)m_impl->gpu_viewport.Width, (u32)m_impl->gpu_viewport.Height, 1, 1, gpu_resource_desc::resourceflags::AllowDepthStencil), gpu_resourcestate::DepthWrite, &dclear);
+		stl_assert(m_impl->gpuCtx.CreateDescriptorDSVTexture(m_impl->resFrameDepth, m_impl->gpuCtx.DescriptorHeapGetCPUAddressStart(m_impl->backbufferDsvHeap),false, false, m_impl->resFrameDepth_type));
 
 		m_impl->gpuCtx.ResourceSetName(m_impl->resFrameDepth, "m_impl->resFrameDepth");
 	}
