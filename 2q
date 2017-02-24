@@ -1,0 +1,15 @@
+Fixed issue where depth buffer resource was not typeless and srvs were
+not able to be created properly for the depthbuffer. Also removed the
+setpowerstate calls since it now requires development mode to use (will
+result in crash otherwise since win10 millenium update).
+# Please enter the commit message for your changes. Lines starting
+# with '#' will be ignored, and an empty message aborts the commit.
+# Explicit paths specified without -i or -o; assuming --only paths...
+# On branch master
+# Your branch is up-to-date with 'origin/master'.
+#
+# Changes to be committed:
+#	modified:   Projects/ExExecuteIndirectOcclusionCulling/app.cpp
+#	modified:   Source/Shared/engine/cfc/gpu/gfx_d3d12.cpp
+#	modified:   Source/Shared/engine/cfc/gpu/gpu_d3d12.cpp
+#
