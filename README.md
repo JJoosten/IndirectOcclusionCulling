@@ -1,5 +1,3 @@
-IndirectOcclusionCulling
-
 Indirect Occlusion Culling
 
 Since VR and the trend in big virtual open worlds continues to grow, occlusion culling stays a hot topic of research. This project is an implementation of the occlusion culling technique created by Evgeny Makarov from NVIDIA described in the NVIDIA Advanced Scene Graph Rendering Pipeline presented in 2013 at GPU Technology Conference slides. http://on-demand.gputechconf.com/gtc/2013/presentations/S3032-Advanced-Scenegraph-Rendering-Pipeline.pdf
